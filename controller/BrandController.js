@@ -7,6 +7,8 @@ async function createRecord(req,res){
         }
         await data.save()
 
+
+        
         res.send({result:"Done", data:data ,message:"Record is created, Successfully"})
     } catch (error) {
         console.log(error);
