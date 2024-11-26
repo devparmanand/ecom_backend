@@ -2,7 +2,7 @@ const Brand = require("../model/Brand")
 async function createRecord(req,res){
     try {
         const data = new Brand(req.body)
-        if(req.file){
+        if(req.file){ 
             data.pic = req.file.path
         }
         await data.save()
