@@ -61,7 +61,7 @@ async function updateRecord(req,res){
                     const fs = require("fs")
                     fs.unlinkSync(data.pic)
 
-                } catch (error) {
+                } catch (error) { 
                     data.pic = req.file.path
                 }
             }
