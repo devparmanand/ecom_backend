@@ -2,7 +2,7 @@ const express = require("express")
 const dotenv = require("dotenv").config()
 const Router = require("./routes/MainRoutes")
 
-const app = express()
+const app =  express()
 
 require("./db_connect")
 
