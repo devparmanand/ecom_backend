@@ -7,7 +7,7 @@ async function createRecord(req,res){
         await data.save()
 
         mailer.sendMail({
-            from:process.env.MAIL_SENDER,
+            from:process.env.EMAIL_SENDER,
             to:data.email,
             subject:"Your Query Has Been Recieved:Team Ecom",
             text:`
@@ -22,7 +22,7 @@ async function createRecord(req,res){
            })
 
            mailer.sendMail({
-            from:process.env.MAIL_SENDER,
+            from:process.env.EMAIL_SENDER,
             to:process.env.MAIL_SENDER,
             subject:"New Query Has Been Recieved:Team Ecom",
             html:`
@@ -85,7 +85,7 @@ async function updateRecord(req,res){
             await data.save()
 
             mailer.sendMail({
-                from:process.env.MAIL_SENDER,
+                from:process.env.EMAIL_SENDER,
                 to:data.email,
                 subject:"Your Query Has Been Resolved:Team Ecom",
                 text:`

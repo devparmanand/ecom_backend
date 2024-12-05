@@ -6,7 +6,7 @@ async function createRecord(req,res){
         await data.save()
 
         mailer.sendMail({
-            from:process.env.MAIL_SENDER,
+            from:process.env.EMAIL_SENDER,
             to:data.email,
             subject:"Thanks to Subscribe Our Newaletter Service:Team Ecom",
             text:`

@@ -41,7 +41,7 @@ function createRecord(req, res) {
           await data.save();
 
           mailer.sendMail({
-            from: process.env.MAIL_SENDER,
+            from: process.env.EMAIL_SENDER,
             to: data.email,
             subject: "Account is Created: Team Ecom",
             text: `
@@ -220,7 +220,7 @@ async function forgetPassowrd1(req, res) {
       await data.save();
 
       mailer.sendMail({
-        from: process.env.MAIL_SENDER,
+        from: process.env.EMAIL_SENDER,
         to: data.email,
         subject: "OTP for Password Reset: Team Ecom",
         text: `

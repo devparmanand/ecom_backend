@@ -17,7 +17,7 @@ async function createRecord(req,res){
   let {user}=check
               
  mailer.sendMail({
-                from:process.env.MAIL_SENDER,
+                from:process.env.EMAIL_SENDER,
                 to:user.email,
                 subject:"Your Order Has Been Placed: Team Ecom",
                 text:`
@@ -192,7 +192,7 @@ async function updateRecord(req,res){
             ])
          let user = finalData.user
             mailer.sendMail({
-                from:process.env.MAIL_SENDER,
+                from:process.env.EMAIL_SENDER,
                 to:user.email,
                 subject:"Status of Your Order Has Been Changed: Team Ecom",
                 text:`
