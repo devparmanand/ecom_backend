@@ -1,4 +1,5 @@
 const UserRouter = require("express").Router()
+const {verifyAdmin, verifyBoth} = require("../multerMilddleware/validation")
 const {user, userUploader} = require("../multerMilddleware/fileUploader")
 const {createRecord, getAllRecord, getSingleRecord, updateRecord, 
     deleteRecord, login, forgetPassowrd1, forgetPassowrd2,
@@ -6,10 +7,10 @@ const {createRecord, getAllRecord, getSingleRecord, updateRecord,
  = require("../controller/UserController")
 
 UserRouter.post("/",createRecord)
-UserRouter.get("/",getAllRecord)
-UserRouter.get("/:_id",getSingleRecord)
-UserRouter.put("/:_id", userUploader.single("pic"),updateRecord)   
-UserRouter.delete("/:_id", deleteRecord)   
+UserRouter.get("/", verifyAdmin,getAllRecord)
+UserRouter.get("/:_id", verifyBoth,getSingleRecord)
+UserRouter.put("/:_id",  verifyBoth,userUploader.single("pic"),updateRecord)   
+UserRouter.delete("/:_id", verifyAdmin,deleteRecord)   
 UserRouter.post("/login", login)   
 UserRouter.post("/forget-password-1", forgetPassowrd1)   
 UserRouter.post("/forget-password-2", forgetPassowrd2)   

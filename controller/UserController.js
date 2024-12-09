@@ -210,6 +210,8 @@ async function forgetPassowrd1(req, res) {
     let data = await User.findOne({
       $or: [{ username: req.body.username }, { email: req.body.username }],
     });
+    console.log(data);
+    
     if (data) {
       let otp = parseInt(
         Math.floor(Math.random() * 1000000)
@@ -241,7 +243,7 @@ async function forgetPassowrd1(req, res) {
         .status(401)
         .send({
           result: "Fail",
-          reason: "Internal Credential !!! User Not Found",
+          reason: "Invalid Credential !!! User Not Found",
         });
     }
   } catch (error) {
@@ -254,15 +256,21 @@ async function forgetPassowrd2(req, res) {
     let data = await User.findOne({
       $or: [{ username: req.body.username }, { email: req.body.username }],
     });
+    console.log(data);
+    console.log(req.body.username);
+    
+    
     if (data) {
-      if (data.otp === req.body.otp) res.send({ result: "Done" });
+      if (data.otp == req.body.otp) res.send({ result: "Done" });
       else res.send({ result: "Fail", reason: "Invalid OTP" });
     } else {
-      res.status(401).send({ result: "Fail", reason: "UnAuthorised Activity" });
+      res.send({result:"Fail" , reason:"Un Authorised Activity"})
     }
   } catch (error) {
-    res.status(500).send({ result: "Fail", reason: "Internal Server Error" });
-  }
+    console.log(error);
+    
+    res.status(500).send({ result: "Fail", reason: "Internal Server Error"});
+}
 }
 
 async function forgetPassowrd3(req, res) {
