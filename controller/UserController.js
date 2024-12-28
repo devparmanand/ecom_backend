@@ -51,50 +51,36 @@ function createRecord(req, res) {
              Team:Ecom
              `,
           });
-
-          res.send({
-            result: "Done",
-            data: data,
-            message: "Record is created, Successfully",
-          });
+    
+        jwt.sign({data},process.env.JWT_SECRET_KEY_BUYER ,(error,token)=>{
+          if(error)
+            res.status(500).send({result:"Fail" , reason:"Internal Server Error"})
+          else
+          res.send({result:"Done" , data:data , token:token , message:"Record is created, Successfully"})
+        })
         } catch (error) {
-          console.log(error);
+          // console.log(error);
 
-          const errorMessage = [];
+          const errorMessage = {};
 
-          error.keyValue?.username
-            ? errorMessage.push({ name: "User Name is Already Exist" })
-            : "";
-          error.keyValue?.email
-            ? errorMessage.push({ name: "Email Address is Already Exist" })
-            : "";
-          error.errors?.name
-            ? errorMessage.push({ name: error.errors.name.message })
-            : "";
-          error.errors?.username
-            ? errorMessage.push({ username: error.errors.username.message })
-            : "";
-          error.errors?.email
-            ? errorMessage.push({ email: error.errors.email.message })
-            : "";
-          error.errors?.phone
-            ? errorMessage.push({ phone: error.errors.phone.message })
-            : "";
-          error.errors?.password
-            ? errorMessage.push({ password: error.errors.password.message })
-            : "";
-          errorMessage.length === 0
-            ? res
-                .status(500)
-                .send({ result: "Fail", reason: "Internal Server Error" })
-            : res.status(500).send({ result: "Fail", reason: errorMessage });
+          error.keyValue?.username? errorMessage.username =  "User Name is Already Exist" : ""
+          error.keyValue?.email? errorMessage.email =  "Email Address is Already Exist" : ""
+          error.errors?.name? errorMessage.name =  error.errors.name.message : ""
+          error.errors?.username? errorMessage.message = error.errors.username.message : ""
+          error.errors?.email? errorMessage.email = error.errors.email.message : ""
+          error.errors?.phone? errorMessage.phone = error.errors.phone.message : ""
+          error.errors?.password? errorMessage.password =  error.errors.password.message : ""
+          
+       Object.values(errorMessage).filter((x)=>x!=="").length === 0?
+           res.status(500).send({ result: "Fail", reason: "Internal Server Error" })
+            : res.send({ result: "Fail", reason: errorMessage });
         }
     });
   } else
     res.send({
       result: "Fail",
-      reason:
-        "Invalid Password !!! Password Must Contains atleast 1 Digit , 1 Uppercase, 1 Lowercase Character and Should not contain any space and length must be within 8-100",
+       
+      reason:{password: "Invalid Password !!! Password Must Contains atleast 1 Digit , 1 Uppercase, 1 Lowercase Character and Should not contain any space and length must be within 8-100",}
     });
 }
 
@@ -181,26 +167,22 @@ async function login(req, res) {
   try {
     let data = await User.findOne({
       $or: [{ username: req.body.username }, { email: req.body.username }],
-    });
-    if (data && (await bcrypt.compare(req.body.password, data.password))) {
+    }); 
+    if (data && await bcrypt.compare(req.body.password, data.password)) {
       let secretkey =
         data.role === "Buyer"
           ? process.env.JWT_SECRET_KEY_BUYER
           : process.env.JWT_SECRET_KEY_ADMIN;
-
-      jwt.sign(
-        { data },
-        secretkey,
-        { expiresIn: 60 * 60 * 24 * 7 },
-        (error, token) => {
-          if (error) {
-          } else res.send({ result: "Done", data: data, token: token });
-        }
-      );
-    } else
-      res
-        .status(401)
-        .send({ result: "Fail", reason: "User Name or Password Invalid" });
+          // ,{ expiresIn: 60 * 60 * 24 * 7 }
+      jwt.sign({ data },secretkey,(error, token) => {
+          if (error) 
+            res.status(500).send({result:"Fail", reason:"Internal Server"})
+           else 
+           res.send({ result: "Done", data: data, token: token });
+         })
+         }
+       else
+   res.status(401).send({ result: "Fail", reason: "User Name or Password Invalid" });
   } catch (error) {
     res.status(500).send({ result: "Fail", reason: "Internal Server Error" });
   }

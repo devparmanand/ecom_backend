@@ -15,17 +15,17 @@ async function createRecord(req,res){
                 .populate([
                     {
                         path:"maincategory",
-                        select:"name -_id"
+                        select:"name"
                     },
 
                     {
                         path:"subcategory",
-                        select:"name -_id"
+                        select:"name"
                     },
 
                     {
                         path:"brand",
-                        select:"name -_id"
+                        select:"name"
                     },
                 ])
 
@@ -75,24 +75,23 @@ async function createRecord(req,res){
 async function getAllRecord(req,res){
     
     try {
-        const data  = await Product.find().sort({_id:-1})
-        .populate([
+        let data  = await Product.find().sort({_id:-1}).populate([
             {
                 path:"maincategory",
-                select:"name -_id"
+                select:"name"
             },
 
             {
                 path:"subcategory",
-                select:"name -_id"
+                select:"name"
             },
 
             {
                 path:"brand",
-                select:"name -_id"
+                select:"name"
             },
         ])
-        res.send({result:"Done",cont:data.length,data:data})   
+        res.send({result:"Done",data:data,count:data.length})   
     } catch (error) {
         res.status(500).send({result:"Fail",reason:"Internal Server Error"})
     }
@@ -105,17 +104,17 @@ async function getSingleRecord(req,res){
         .populate([
             {
                 path:"maincategory",
-                select:"name -_id"
+                select:"name"
             },
 
             {
                 path:"subcategory",
-                select:"name -_id"
+                select:"name"
             },
 
             {
                 path:"brand",
-                select:"name -_id"
+                select:"name"
             },
         ])
         if(data)
@@ -160,17 +159,17 @@ async function updateRecord(req,res){
             .populate([
                 {
                     path:"maincategory",
-                    select:"name -_id"
+                    select:"name"
                 },
 
                 {
                     path:"subcategory",
-                    select:"name -_id"
+                    select:"name"
                 },
 
                 {
                     path:"brand",
-                    select:"name -_id"
+                    select:"name"
                 },
             ])
         res.send({result:"Done",data:findData,message:"Record Updated, Successfully"})  

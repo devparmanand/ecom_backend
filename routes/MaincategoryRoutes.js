@@ -1,11 +1,11 @@
 const MaincategoryRouter = require("express").Router()
-const {verifyAdmin} = require("../multerMilddleware/validation")
+// const {verifyAdmin} = require("../multerMilddleware/validation")
 const {createRecord, getAllRecord, getSingleRecord, updateRecord, deleteRecord}  = require("../controller/MaincategoryController")
 
-MaincategoryRouter.post("/",verifyAdmin,createRecord)
+MaincategoryRouter.post("/",createRecord)
 MaincategoryRouter.get("/",getAllRecord)
 MaincategoryRouter.get("/:_id" ,getSingleRecord)
-MaincategoryRouter.put("/:_id", verifyAdmin, updateRecord)   
-MaincategoryRouter.delete("/:_id",verifyAdmin, deleteRecord)   
+MaincategoryRouter.put("/:_id",  updateRecord)   
+MaincategoryRouter.delete("/:_id", deleteRecord)   
 
 module.exports=MaincategoryRouter
