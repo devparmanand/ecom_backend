@@ -146,12 +146,21 @@ async function updateRecord(req,res){
             data.active=req.body.active??data.active
             if(req.files){
                 try {
-                    // const fs = require("fs")
-                    // fs.unlinkSync(data.pic)
+                  data.oldPic.forEach((x , index)=>{
+                    if(!(req.body.oldPic?.split(",").includes(x))){
+                        const fs = require("fs")
+                        fs.unlinkSync(x)
+                    }
+
+                    })
 
                 } catch (error) {}
-                data.pic = data.pic.concat(req.files.map((x)=>x.path))
-
+                if(req.body.oldPic===""){
+                    data.pic = req.body.map((x)=>x.path)
+                }
+                else
+                data.pic = req.body.oldPic?.split(",").concat(req.files.map((x)=>x.path))
+                   
             }
 
             await data.save()
