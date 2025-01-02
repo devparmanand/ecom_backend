@@ -1,11 +1,11 @@
 const WishlistRouter = require("express").Router()
-const {verifyBoth} = require("../multerMilddleware/validation")
+// const {verifyBoth} = require("../multerMilddleware/validation")
 const {createRecord, getAllRecord, getSingleRecord, deleteRecord} 
  = require("../controller/WishlistController")
 
-WishlistRouter.post("/" , verifyBoth,createRecord)
-WishlistRouter.get("/",verifyBoth,getAllRecord)
-WishlistRouter.get("/:_id",verifyBoth,getSingleRecord)
-WishlistRouter.delete("/:_id", verifyBoth, deleteRecord)   
+WishlistRouter.post("/" , createRecord)
+WishlistRouter.get("/:userid",getAllRecord)
+WishlistRouter.get("/single/:_id",getSingleRecord)
+WishlistRouter.delete("/:_id",  deleteRecord)   
 
 module.exports=WishlistRouter

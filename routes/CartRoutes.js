@@ -1,12 +1,12 @@
 const CartRouter = require("express").Router()
-const {verifyBoth} = require("../multerMilddleware/validation")
+// const {verifyBoth} = require("../multerMilddleware/validation")
 const {createRecord, getAllRecord, getSingleRecord, updateRecord, deleteRecord} 
  = require("../controller/CartController")
 
-CartRouter.post("/", verifyBoth,createRecord)
-CartRouter.get("/",verifyBoth,getAllRecord)
-CartRouter.get("/:_id",verifyBoth,getSingleRecord)
-CartRouter.put("/:_id",verifyBoth,updateRecord)   
-CartRouter.delete("/:_id",verifyBoth, deleteRecord)   
+CartRouter.post("/" ,createRecord)
+CartRouter.get("/:userid",getAllRecord)
+CartRouter.get("/single/:_id",getSingleRecord)
+CartRouter.put("/:_id",updateRecord)   
+CartRouter.delete("/:_id", deleteRecord)   
 
 module.exports=CartRouter
