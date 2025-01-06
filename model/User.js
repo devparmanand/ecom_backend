@@ -42,6 +42,10 @@ const UserScheema = new mongoose.Schema({
         type:String,
         default:""    
     },
+    pin:{
+        type:String,
+        default:""    
+    },
     role:{
         type:String,
         default:"Buyer"    
