@@ -35,14 +35,15 @@ export default function Login() {
         }
 
 
-   async     function postData(e){
+   async function postData(e){
             e.preventDefault()
           let error=Object.values(errorMessage).find((x)=>x!=="")
           if(!error){
               let resposne = await fetch("/api/user/login",{
                 method:"POST",
                 headers:{
-                    "content-type":"application/json"
+                    "content-type":"application/json",
+                    "authorization":localStorage.getItem("token")
                },
                body:JSON.stringify(data)
             })

@@ -112,3 +112,96 @@ export default function Home() {
   )
   
 }
+
+
+
+// import React, { useEffect, useState } from 'react'
+// import Testimonial from './partials/Testimonial'
+// import Aboutcontent from './partials/Aboutcontent'
+// import Product from './partials/Products'
+// import { useDispatch, useSelector } from 'react-redux'
+// import { getProduct } from "../Store/ActionCreators/ProductActionCreators"
+// import { getMaincategory } from "../Store/ActionCreators/MaincategoryActionCreators"
+
+// export default function Home() {
+//   const dispatch = useDispatch();
+//   const ProductStateData = useSelector((state) => state.ProductStateData);
+//   const MaincategoryStateData = useSelector((state) => state.MaincategoryStateData);
+
+//   const [search, setSearch] = useState("");
+//   const [filteredProducts, setFilteredProducts] = useState([]);
+
+//   useEffect(() => {
+//     dispatch(getMaincategory());
+//   }, [dispatch]);
+
+//   useEffect(() => {
+//     dispatch(getProduct());
+//   }, [dispatch]);
+
+//   useEffect(() => {
+//     if (ProductStateData.length) {
+//       setFilteredProducts(ProductStateData);
+//     }
+//   }, [ProductStateData]);
+
+//   const handleSearch = (e) => {
+//     e.preventDefault();
+//     let src = search.toLowerCase();
+//     let result = ProductStateData.filter(
+//       (x) =>
+//         x.name.toLowerCase().includes(src) ||
+//         x.maincategory?.name.toLowerCase() === src ||
+//         x.subcategory?.name.toLowerCase() === src ||
+//         x.brand?.name.toLowerCase() === src ||
+//         x.color?.toLowerCase() === src ||
+//         x.description?.toLowerCase().includes(src)
+//     );
+//     setFilteredProducts(result);
+//   };
+
+//   return (
+//     <>
+//       {/* Search Input */}
+//       <div className="container my-4">
+//         <form onSubmit={handleSearch}>
+//           <div className="input-group">
+//             <input
+//               type="text"
+//               className="form-control border-primary border-3"
+//               placeholder="Search Products..."
+//               value={search}
+//               onChange={(e) => setSearch(e.target.value)}
+//             />
+//             <button type="submit" className="btn btn-primary">
+//               <i className="fa fa-search"></i>
+//             </button>
+//           </div>
+//         </form>
+//       </div>
+
+//       {/* Carousel Section (unchanged) */}
+//       {/* ... your carousel code ... */}
+
+//       {/* Filtered Products Display */}
+//       {search.trim() ? (
+//         <Product title={`Search Results for "${search}"`} data={filteredProducts.slice(0, 36)} />
+//       ) : (
+//         <>
+//           {
+//             MaincategoryStateData.length && ProductStateData.length && MaincategoryStateData.map((item, index) => (
+//               <Product
+//                 key={index}
+//                 title={`${item.name} Products`}
+//                 data={ProductStateData.filter((x) => x.maincategory._id === item._id).slice(0, 36)}
+//               />
+//             ))
+//           }
+//           <Aboutcontent />
+//           <Product title="All Categories" data={ProductStateData.slice(0, 36)} />
+//           <Testimonial />
+//         </>
+//       )}
+//     </>
+//   );
+// }
