@@ -2,7 +2,6 @@ const User = require("../model/User");
 const passwordValidator = require("password-validator");
 const bcrypt = require("bcrypt");
 const mailer = require("../mailer");
-const { error } = require("console");
 const jwt = require("jsonwebtoken");
 // Create a schema
 var schema = new passwordValidator()
@@ -59,7 +58,7 @@ function createRecord(req, res) {
           res.send({result:"Done" , data:data , token:token , message:"Record is created, Successfully"})
         })
         } catch (error) {
-          // console.log(error);
+          console.log(error);
 
           const errorMessage = {};
 

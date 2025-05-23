@@ -28,7 +28,7 @@ async function createRecord(req,res){
                         select:"name"
                     },
                 ])
-
+// New Product Create     Karne Par User Ke Pass Email Chala Jayega
         const   newsaletter= await Newsletter.find()    
         newsaletter.forEach((x)=>{
             mailer.sendMail({

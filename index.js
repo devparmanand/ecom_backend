@@ -6,7 +6,7 @@ const cors = require("cors")
 
 const app =  express()
 
-var whitelist = ['http://localhost:3000' , 'http://localhost:8000']
+var whitelist = ['http://localhost:3000' , 'http://localhost:5000']
 
 var corsOptions = {
     origin: function (origin, callback) {
@@ -24,12 +24,13 @@ var corsOptions = {
 require("./db_connect")
 
 app.use(cors(corsOptions))
+app.use(express.static(path.join(__dirname,'build')))
 app.use(express.json())
 app.use("/api",Router)
 app.use(express.static("./public"))
 app.use("/public",express.static("./public"))
 
-let PORT = process.env.PORT || 8000
+let PORT = process.env.PORT || 5000
 
 
 app.listen(PORT,console.log(`Server is Running at port ${PORT}`))
