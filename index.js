@@ -10,8 +10,6 @@ var whitelist = ['http://localhost:3000' , 'http://localhost:5000']
 
 var corsOptions = {
     origin: function (origin, callback) {
-      console.log("Origin",origin);
-      
       if (whitelist.includes(origin) !== -1) {
         callback(null, true)
       } else {
