@@ -208,7 +208,7 @@ export default function AdminProduct() {
                           <div style={{width:300}}>
                           {
                              item.pic.map((img,index)=>{
-                              return <Link key={index} to={`http://localhost:8000/${img}`} target="blank" rel="noreferrer">
+                              return <Link key={index} to={`https://ecom-backend-2-eco5.onrender.com/${img}`} target="blank" rel="noreferrer">
                                 <img src={`/${img}`} height={50} width={50} alt="Product image" />
                               </Link>
                              })
